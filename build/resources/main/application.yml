@@ -1,0 +1,42 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: auth-service
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connection timeout: 5000
+          timeout: 5000
+          write timeout: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+auth:
+  cookie:
+    access-token-name: accessToken
+    refresh-token-name: refreshToken
+    csrf-token-name: csrfToken
+    same-site: Lax
+    secure: false
+    path: /
+
+alloc:
+  internal:
+    base-url: ${ALLOC_INTERNAL_BASE_URL:http://localhost:8080}

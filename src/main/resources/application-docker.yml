@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: auth-service
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+
+auth:
+  cookie:
+    access-token-name: accessToken
+    refresh-token-name: refreshToken
+    csrf-token-name: csrfToken
+    same-site: Lax
+    secure: false
+    path: /
