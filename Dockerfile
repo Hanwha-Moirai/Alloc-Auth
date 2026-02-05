@@ -4,17 +4,15 @@ WORKDIR /app
 COPY gradlew gradlew
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
-COPY auth-service auth-service
-COPY gateway gateway
 COPY src src
 
 RUN chmod +x gradlew \
-    && ./gradlew :auth-service:bootJar --no-daemon
+    && ./gradlew bootJar --no-daemon -x test
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-COPY --from=builder /app/auth-service/build/libs/*.jar app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8082
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
